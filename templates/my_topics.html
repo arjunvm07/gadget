@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Topics</title>
+    <link rel="stylesheet" href="/static/community.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="left-section">
+            <h2>Community</h2>
+            <div class="menu">
+                <a href="{{ url_for('community_page') }}">Home</a>
+                <a href="{{ url_for('get_my_topics') }}">My Topics</a>
+                <a href="{{ url_for('get_trending_posts') }}">Trending</a>
+                <a href="{{ url_for('faqs_page') }}">FAQs</a>
+            </div>
+        </div>
+
+        <!-- Middle Section -->
+        <div class="middle-section">
+            <div class="header">
+                <h3>My Topics</h3>
+                <a href="/home" class="home-icon">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+            <div class="posts">
+                {% for post in posts %}
+                {% if session['name'] == post.user %}
+                <div class="post-box">
+                    <form action="/community/delete_post/{{ post._id }}" method="POST" class="delete-form">
+                        <button type="submit" class="delete-button">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+
+                    <p class="post-header">
+                      <img 
+                      src="{{ post.avatar_url }}" 
+                      alt="User Avatar" 
+                      class="user-avatar">
+                        <strong class="post-user">{{ post.user }}</strong> 
+                        <span class="post-time">{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                    </p>
+
+                    <p>{{ post.content }}</p>
+
+                    <div class="actions">
+                        <button class="like-button" onclick="likePost('{{ post._id }}')">
+                            <i class="fas fa-thumbs-up"></i> Like ({{ post.likes | default(0) }})
+                        </button>
+                        <button class="comments-button" onclick="toggleComments('{{ post._id }}')">
+                            <i class="fas fa-comment"></i> Comments
+                        </button>
+                    </div>
+
+                    <div class="comments-section" id="comments-{{ post._id }}" style="display: none;">
+                        <h4>Comments</h4>
+                        {% if post.comments %}
+                            {% for comment in post.comments %}
+                            <div class="comment">
+                                <p><strong>{{ comment.user }}</strong>: {{ comment.content }}</p>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No comments yet. Be the first to comment!</p>
+                        {% endif %}
+                        <form action="/community/comment_post/{{ post._id }}" method="POST" class="comment-form">
+                            <textarea name="comment" rows="2" placeholder="Add a comment..." required></textarea>
+                            <button type="submit">Comment</button>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-section">
+            <div class="new-updates">
+                <h3>New Updates</h3>
+                <p>Stay tuned for the latest updates in the community.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function likePost(postId) {
+            fetch(`/community/like_post/${postId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function toggleComments(postId) {
+            const commentsSection = document.getElementById(`comments-${postId}`);
+            if (commentsSection.style.display === "none") {
+                commentsSection.style.display = "block";
+            } else {
+                commentsSection.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

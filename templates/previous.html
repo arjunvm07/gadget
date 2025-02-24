@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Results</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(90deg, #023966, #000000);
+            color: #ffffff;
+        }
+        .btn-theme {
+            background: rgb(90, 90, 223);
+            color: #ffffff;
+            border: 1px solid #ffffff;
+        }
+        .btn-theme:hover {
+            background: blue;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Your Previous Quiz Results</h1>
+        {% if results %}
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Level</th>
+                        <th>Description</th>
+                        <th>Suggestions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ loop.index }}</td> <!-- 1-based index -->
+                        <td>{{ result['date'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>
+                            {% if result['prediction'] == 0 %}
+                            Low Level of Gadget Addiction
+                            {% elif result['prediction'] == 1 %}
+                            High Level of Gadget Usage
+                            {% elif result['prediction'] == 2 %}
+                            Severe Level of Gadget Addiction
+                            {% else %}
+                            Unknown
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if result['prediction'] == 0 %}
+                            Your gadget usage is healthy and balanced.
+                            {% elif result['prediction'] == 1 %}
+                            Gadget usage might be starting to impact your daily life.
+                            {% elif result['prediction'] == 2 %}
+                            Your gadget usage is excessive and disruptive.
+                            {% else %}
+                            Unknown
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if result['prediction'] == 0 %}
+                            Maintain a healthy lifestyle by limiting screen time.
+                            {% elif result['prediction'] == 1 %}
+                            Consider setting screen time limits.
+                            {% elif result['prediction'] == 2 %}
+                            Seek help to manage screen time effectively.
+                            {% else %}
+                            Try again.
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center mt-4">No previous results found. Take a quiz to see your results here!</p>
+        {% endif %}
+        <div class="text-center mt-4">
+            <a href="{{ url_for('quiz') }}" class="btn btn-theme">Take the Quiz</a>
+            <a href="{{ url_for('home') }}" class="btn btn-theme">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

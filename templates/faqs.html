@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs</title>
+    <link rel="stylesheet" href="/static/community.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="left-section">
+            <h2>Community</h2>
+            <div class="menu">
+                <a href="{{ url_for('community_page') }}">Home</a>
+                <a href="{{ url_for('get_my_topics') }}">My Topics</a>
+                <a href="{{ url_for('get_trending_posts') }}">Trending</a>
+                <a href="{{ url_for('faqs_page') }}">FAQs</a>
+            </div>
+        </div>
+
+        <!-- Middle Section -->
+        <div class="middle-section">
+            <div class="header">
+                <h3>Frequently Asked Questions</h3>
+                <a href="/home" class="home-icon">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+
+            <div class="faqs">
+                <h3>FAQs</h3>
+
+                <!-- FAQ Item -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq('faq1')">
+                        <i class="fas fa-chevron-right"></i> What is this community about?
+                    </button>
+                    <div class="faq-answer" id="faq1" style="display: none;">
+                        <p>This community is a platform for users to share ideas, discuss topics, and connect with others with similar interests.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq('faq2')">
+                        <i class="fas fa-chevron-right"></i> How can I create a post?
+                    </button>
+                    <div class="faq-answer" id="faq2" style="display: none;">
+                        <p>You can create a post by going to the Community page, filling out the text area under "Create Post," and clicking "Publish."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq('faq3')">
+                        <i class="fas fa-chevron-right"></i> Can I delete my post?
+                    </button>
+                    <div class="faq-answer" id="faq3" style="display: none;">
+                        <p>Yes, you can delete your post by clicking the delete icon (<i class="fas fa-trash"></i>) next to your post.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq('faq4')">
+                        <i class="fas fa-chevron-right"></i> How do I comment on a post?
+                    </button>
+                    <div class="faq-answer" id="faq4" style="display: none;">
+                        <p>Click the "Comments" button under the post to expand the comments section, write your comment, and click "Submit."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq('faq5')">
+                        <i class="fas fa-chevron-right"></i> How can I contact support?
+                    </button>
+                    <div class="faq-answer" id="faq5" style="display: none;">
+                        <p>You can contact our support team by emailing us at <a href="mailto:support@community.com">arjunmanikandan17@community.com</a>.</p>
+                    </div>
+                </div>
+
+                <!-- Additional Questions -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq('faq6')">
+                        <i class="fas fa-chevron-right"></i> How do I report a post or user?
+                    </button>
+                    <div class="faq-answer" id="faq6" style="display: none;">
+                        <p>You can report a post or user by clicking the "Report" button on the post or visiting the user profile and selecting "Report User."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq('faq7')">
+                        <i class="fas fa-chevron-right"></i> What topics can I post about?
+                    </button>
+                    <div class="faq-answer" id="faq7" style="display: none;">
+                        <p>You can post about any topic that aligns with our community guidelines. Make sure to keep it respectful and relevant to the community.</p>
+                    </div>
+                </div>
+
+                
+
+                
+               
+
+                
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-section">
+            <div class="new-updates">
+                <h3>New Updates</h3>
+                <p>Stay tuned for the latest updates in the community.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFaq(id) {
+            const faqAnswer = document.getElementById(id);
+            const icon = faqAnswer.previousElementSibling.querySelector("i");
+            
+            if (faqAnswer.style.display === "none") {
+                faqAnswer.style.display = "block";
+                icon.classList.remove("fa-chevron-right");
+                icon.classList.add("fa-chevron-down");
+            } else {
+                faqAnswer.style.display = "none";
+                icon.classList.remove("fa-chevron-down");
+                icon.classList.add("fa-chevron-right");
+            }
+        }
+    </script>
+</body>
+</html>

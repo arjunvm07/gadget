@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background: linear-gradient(90deg, #023966, #000000); color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div style="width: 80%; max-width: 900px; background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+        <h1 style="text-align: center; margin-bottom: 20px; font-weight: bold; color: #e3e3e3;">Admin Dashboard</h1>
+        <h3 style="text-align: center; margin-bottom: 20px; font-weight: bold; color: #e3e3e3;">Reported Posts</h3>
+        {% for post in reported_posts %}
+        <div style="padding: 15px; margin-bottom: 20px; border-radius: 5px; background: rgba(255, 255, 255, 0.2); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+            <p style="margin: 5px 0;"><strong>{{ post.user }}</strong> says:</p>
+            <p style="margin: 5px 0;">{{ post.content }}</p>
+            <p style="margin: 5px 0;">Reports: {{ post.reports | length }}</p>
+            <form action="{{ url_for('delete_reported_post', post_id=post._id) }}" method="POST" style="margin-top: 10px;">
+                <button type="submit" style="background-color: #d32f2f; color: #ffffff; border: none; border-radius: 3px; padding: 10px 15px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease;">Delete Post</button>
+            </form>
+            <hr style="border: 0; height: 1px; background: #ffffff; opacity: 0.3;">
+        </div>
+        {% endfor %}
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{{ url_for('home') }}" style="text-decoration: none; background-color: #007bff; color: #ffffff; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: bold; transition: background-color 0.3s ease;">
+                Back to Home
+            </a>
+        </div>
+    </div>
+</body>
+</html>

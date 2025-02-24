@@ -1,0 +1,321 @@
+/* General Reset */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  height: 100vh;
+}
+
+/* Container Layout - Grid System */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 2fr; /* Define columns for left, middle, and right sections */
+  gap: 20px; /* Add spacing between columns */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  box-sizing: border-box; /* Include padding/borders in width/height calculations */
+}
+
+/* Left Section */
+.left-section {
+  padding: 15px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #023966, #000000);
+  color: white;
+  overflow-y: auto;
+}
+/* Left Section Links */
+.left-section .menu {
+  list-style: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  display: flex;
+  flex-direction: column; /* Arrange links vertically */
+  gap: 15px; /* Add spacing between links */
+}
+
+.left-section .menu a {
+  text-decoration: none; /* Remove underline */
+  font-size: 18px; /* Increase font size */
+  font-weight: bold; /* Make the text bold */
+  color: white; /* Ensure text is visible on the gradient background */
+  padding: 10px 15px; /* Add padding for better click area */
+  border-radius: 6px; /* Rounded corners for links */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+}
+
+.left-section .menu a:hover {
+  background-color: #0056b3; /* Add a hover background color */
+  color: #fff; /* Change text color on hover */
+  cursor: pointer; /* Add pointer cursor */
+}
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /* Makes the avatar circular */
+  margin-right: 10px; /* Adds spacing between the avatar and the username */
+  vertical-align: middle; /* Aligns the avatar with the text */
+}
+
+
+/* Middle Section */
+.middle-section {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+/* Right Section */
+.right-section {
+  flex: 1;
+  padding: 15px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #023966, #000000);
+  color: white; /* Adjust text color for contrast */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Handles overflow content */
+}
+
+.post-box {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Delete Button Styling */
+.delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.delete-button:hover {
+  color: #d00000;
+  background-color: transparent;
+}
+
+/* Actions (Like & Comments) */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.like-button, .comments-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.like-button:hover, .comments-button:hover {
+  color: #0056b3;
+  background-color: transparent;
+ 
+}
+.like-button:focus, .comments-button:focus,
+.like-button:active, .comments-button:active {
+  outline: none; /* Remove outline on focus */
+  box-shadow: none; /* Remove any box-shadow */
+  background-color: transparent;
+}
+.report-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px; /* Move it to the bottom-right */
+}
+
+.report-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #f44336; /* Red color for the flag icon */
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.report-button:hover {
+  color: #d32f2f; /* Darker red on hover */
+  background-color: transparent;
+}
+
+
+
+/* Comments Section */
+.comments-section {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: none; /* Hidden by default */
+}
+
+/* Individual Comment */
+.comment {
+  margin-bottom: 10px;
+}
+
+/* Comment Form */
+.comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.comment-form button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #0056b3;
+}
+
+.middle-section {
+  position: relative;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.home-icon {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  color: #000;
+}
+
+.create-post {
+  width: 100%;
+}
+
+.create-post form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical; /* Allows resizing vertically */
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Post Header Styling */
+.post-header {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between username and timestamp */
+  flex-wrap: wrap; /* Ensures it wraps well in smaller screens */
+}
+
+.post-user {
+  font-weight: bold;
+  color: #0c0d0d; 
+  /* Add a blue color to the username */
+  margin: 0;
+  margin-left: -15px;
+}
+
+.post-time {
+  font-size: 12px;
+  color: #888; /* Lighter gray for the timestamp */
+  margin-left: auto; /* Align timestamp to the right */
+  font-style: italic; /* Make the timestamp a bit more subtle */
+  margin-top: 30px;
+}
+
+/* Add hover effect for username */
+.post-user:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* My Topics Section */
+.my-topics {
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between boxes */
+}
+
+.topic-box {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.topic-box:hover {
+  background-color: #e6f7ff;
+  transform: scale(1.02);
+}
+
+.topic-box strong {
+  font-size: 16px;
+  color: #333;
+}
+
+.topic-box small {
+  font-size: 12px;
+  color: #666;
+}

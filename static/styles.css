@@ -1,0 +1,75 @@
+/* General Reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background: linear-gradient(90deg, #023966, #000000);
+}
+
+/* Navbar Styles */
+.navbar {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  text-align: center;
+}
+
+.navbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+
+/* Result Section */
+.result-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.result-container h2 {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.result-container h3 {
+  font-size: 22px;
+  color: #ffffff;
+  margin-top: 30px;
+}
+
+.result-container p {
+  font-size: 18px;
+  color: #ddd;
+  line-height: 1.6;
+}
+
+.back-button {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #023966;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #ffffff;
+  transform: translateY(-3px);
+}
+
+/* Footer */
+#footer {
+  background: rgba(0, 0, 0, 0.8);
+  color: #ddd;
+  text-align: center;
+  padding: 10px 0;
+}
+
+#footer p {
+  margin: 0;
+  font-size: 14px;
+}
