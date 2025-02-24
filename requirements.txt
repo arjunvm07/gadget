@@ -35,7 +35,7 @@ psutil==5.9.6
 pymongo==4.11.1
 python-engineio==4.11.2
 python-socketio==5.12.1
-pywin32==305
+
 
 pyzmq==25.1.0
 requests==2.31.0
