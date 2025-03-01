@@ -16,6 +16,10 @@
             {% if session.is_admin %}
                 <a href="/admin/dashboard">Admin Dashboard</a>
             {% endif %}
+            {% if is_admin %}
+    <a href="{{ url_for('admin_quiz_results') }}">View Quiz Results</a>
+             {% endif %}
+
             <div class="navbar-right">
                 <span class="navbar-icon">👤</span>
                 <span class="navbar-user">{{ username }}</span>

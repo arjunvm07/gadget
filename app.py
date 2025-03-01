@@ -386,6 +386,28 @@ def delete_reported_post(post_id):
 
     posts_collection.delete_one({"_id": ObjectId(post_id)})
     return redirect(url_for('admin_dashboard'))
+@app.route('/admin/quiz_results')
+def admin_quiz_results():
+    if 'user' not in session or not session.get('is_admin'):
+        return redirect(url_for('login'))
+    
+    # Fetch all users with their quiz results
+    users = users_collection.find({"quiz_results": {"$exists": True, "$not": {"$size": 0}}})
+    quiz_data = []
+
+    for user in users:
+        for quiz in user["quiz_results"]:
+            quiz_data.append({
+                "username": user["name"],
+                "email": user["email"],
+                "prediction": quiz["prediction"],
+                "date": quiz["date"]
+            })
+
+    # Sort by date (most recent first)
+    quiz_data = sorted(quiz_data, key=lambda x: x["date"], reverse=True)
+
+    return render_template('admin_quiz_results.html', quiz_data=quiz_data)
 
 
 
