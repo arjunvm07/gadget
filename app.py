@@ -35,33 +35,43 @@ questions = [
     "For how long do you use your phone for playing games?",
 ]
 
-# Login page
-@app.route('/')
-def login():
-    session.clear()
-    return render_template('login.html')
-
-@app.route('/login', methods=['POST'])
+#  # Redirect back to the login page
+@app.route('/login', methods=['GET', 'POST'])
 def handle_login():
-    email = request.form['email']
-    password = request.form['password']
-    user = users_collection.find_one({"email": {"$regex": f"^{email}$", "$options": "i"}, "password": password})
-    if user:
-        session['user'] = email
-        session['name'] = user['name']
-        session['is_admin'] = user.get('role') == 'admin'
-        return redirect(url_for('home'))
-    return render_template('login.html', error="Invalid credentials. Please try again.")
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        user = users_collection.find_one({"email": {"$regex": f"^{email}$", "$options": "i"}, "password": password})
+        if user:
+            session['user'] = email
+            session['name'] = user['name']
+            session['is_admin'] = user.get('role') == 'admin'
+            return redirect(url_for('home'))
+        return render_template('login.html', error="Invalid credentials. Please try again.")
+    return render_template('login.html')  # Render login page for GET requests
 
-# Signup page
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+        confirm_password = request.form['confirm_password']
+
+        # Check if passwords match
+        if password != confirm_password:
+            return render_template('signup.html', error="Passwords do not match.")
+
+        # Check if password meets length requirement
+        if len(password) < 8:
+            return render_template('signup.html', error="Password must be at least 8 characters long.")
+
+        # Check if the user already exists
         if users_collection.find_one({"email": email}):
             return render_template('signup.html', error="User already exists. Please login.")
+
+        # Insert user into database
         users_collection.insert_one({
             "name": name,
             "email": email,
@@ -69,21 +79,32 @@ def signup():
             "quiz_results": [],
             "role": "user"  # Default role
         })
-        return redirect(url_for('login'))
+        return redirect(url_for('handle_login'))
+
     return render_template('signup.html')
 
-# Home page
+
+@app.route('/')
+def default():
+    return redirect(url_for('home'))
+
 @app.route('/home')
 def home():
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    return render_template('home.html', username=session['name'], is_admin=session.get('is_admin'))
+    if 'user' in session:
+        return render_template(
+            'home.html',
+            username=session['name'],
+            is_admin=session.get('is_admin', False)
+        )
+    return render_template('home.html', username=None, is_admin=False)
+
+
 
 # Logout
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 # Quiz page
 @app.route('/quiz')
@@ -173,7 +194,7 @@ default_avatars = [
     "/static/img6.jpg",
     "/static/img7.jpeg",
     "/static/img8.jpg",
-"/static/img9.jpg",
+"/static/img9.jpeg",
     "/static/img10.jpg",
 "/static/img11.jpg",
     "/static/img12.jpg",
@@ -408,6 +429,23 @@ def admin_quiz_results():
     quiz_data = sorted(quiz_data, key=lambda x: x["date"], reverse=True)
 
     return render_template('admin_quiz_results.html', quiz_data=quiz_data)
+
+@app.route('/community/edit_post/<post_id>', methods=['POST'])
+def edit_post(post_id):
+    if 'user' not in session:
+        return jsonify({"status": "error", "message": "User not logged in"}), 401
+
+    updated_content = request.form['updated_content']
+    post = posts_collection.find_one({"_id": ObjectId(post_id)})
+
+    if not post:
+        return jsonify({"status": "error", "message": "Post not found"}), 404
+    if post['user'] != session['name']:
+        return jsonify({"status": "error", "message": "Unauthorized action"}), 403
+
+    # Update the post content in the database
+    posts_collection.update_one({"_id": ObjectId(post_id)}, {"$set": {"content": updated_content}})
+    return redirect(url_for('get_my_topics'))
 
 
 

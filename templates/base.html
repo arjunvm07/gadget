@@ -9,24 +9,31 @@
 <body>
     <nav>
         <div class="navbar">
-            <a href="/home">Home</a>
-            <a href="/quiz">Quiz</a>
-            <a href="/community">Community</a>
-            <a href="/previous">Previous Results</a>
-            {% if session.is_admin %}
-                <a href="/admin/dashboard">Admin Dashboard</a>
-            {% endif %}
-            {% if is_admin %}
-    <a href="{{ url_for('admin_quiz_results') }}">View Quiz Results</a>
-             {% endif %}
-
+            <div class="navbar-left">
+                <a href="/home">Home</a>
+                {% if username %}
+                    <a href="/quiz">Quiz</a>
+                    <a href="/community">Community</a>
+                    <a href="/previous">Previous Results</a>
+                    {% if is_admin %}
+                        <a href="/admin/dashboard">Admin Dashboard</a>
+                        <a href="{{ url_for('admin_quiz_results') }}">View Quiz Results</a>
+                    {% endif %}
+                {% endif %}
+            </div>
             <div class="navbar-right">
-                <span class="navbar-icon">👤</span>
-                <span class="navbar-user">{{ username }}</span>
-                <a href="/logout">Logout</a>
+                {% if username %}
+                    <span class="navbar-icon">👤</span>
+                    <span class="navbar-user">{{ username }}</span>
+                    <a href="/logout">Logout</a>
+                {% else %}
+                    <a href="/login">Login</a>
+                    <a href="/signup">Signup</a>
+                {% endif %}
             </div>
         </div>
     </nav>
+    
     
     
     
@@ -40,13 +47,13 @@
     </main>
     <section class="site-info">
         <div class="features-container">
-            <a href="/quiz" class="feature-link">
+            <a  class="feature-link">
                 <div class="feature-box">
                     <h3>Quiz-Based Test</h3>
                     <p>Assess your level of gadget addiction through an engaging quiz that provides insights into your habits.</p>
                 </div>
             </a>
-            <a href="/community" class="feature-link">
+            <a  class="feature-link">
                 <div class="feature-box">
                     <h3>Community Platform</h3>
                     <p>Connect with others in our community space to share experiences and discuss topics related to gadget usage.</p>

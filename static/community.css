@@ -319,3 +319,83 @@ button:hover {
   font-size: 12px;
   color: #666;
 }
+.edit-button {
+  background-color: #007bff; /* Blue color */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px; /* Add some spacing */
+  display: inline-flex;
+  align-items: center;
+  gap: 5px; /* Space between icon and text */
+  transition: background-color 0.3s ease;
+}
+
+.edit-button i {
+  font-size: 14px; /* Icon size */
+}
+
+.edit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.edit-button:active {
+  background-color: #003f7f; /* Even darker blue on click */
+}
+/* Save Button */
+.save-button {
+  background-color: #28a745; /* Green color */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px; /* Add spacing */
+  display: inline-flex;
+  align-items: center;
+  gap: 5px; /* Space between icon and text */
+  transition: background-color 0.3s ease;
+}
+
+.save-button i {
+  font-size: 14px; /* Icon size */
+}
+
+.save-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+.save-button:active {
+  background-color: #1e7e34; /* Even darker green on click */
+}
+
+/* Cancel Button */
+.cancel-button {
+  background-color: #dc3545; /* Red color */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px; /* Space between icon and text */
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button i {
+  font-size: 14px; /* Icon size */
+}
+
+.cancel-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.cancel-button:active {
+  background-color: #a71d2a; /* Even darker red on click */
+}

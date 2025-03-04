@@ -32,23 +32,38 @@
                 {% for post in posts %}
                 {% if session['name'] == post.user %}
                 <div class="post-box">
+                    <!-- Delete Form -->
                     <form action="/community/delete_post/{{ post._id }}" method="POST" class="delete-form">
                         <button type="submit" class="delete-button">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>
 
+                    <!-- Edit Button -->
+                    <button class="edit-button" onclick="editPost('{{ post._id }}', '{{ post.content }}')">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+
+                    <!-- Post Header -->
                     <p class="post-header">
-                      <img 
-                      src="{{ post.avatar_url }}" 
-                      alt="User Avatar" 
-                      class="user-avatar">
+                        <img src="{{ post.avatar_url }}" alt="User Avatar" class="user-avatar">
                         <strong class="post-user">{{ post.user }}</strong> 
                         <span class="post-time">{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
                     </p>
 
-                    <p>{{ post.content }}</p>
+                    <!-- Post Content -->
+                    <p id="post-content-{{ post._id }}">{{ post.content }}</p>
 
+                    <!-- Edit Form (Hidden by Default) -->
+                    <div id="edit-form-{{ post._id }}" class="edit-form" style="display: none;">
+                        <form action="/community/edit_post/{{ post._id }}" method="POST">
+                            <textarea name="updated_content" rows="3" required>{{ post.content }}</textarea>
+                            <button type="submit">Save</button>
+                            <button type="button" onclick="cancelEdit('{{ post._id }}')">Cancel</button>
+                        </form>
+                    </div>
+
+                    <!-- Post Actions -->
                     <div class="actions">
                         <button class="like-button" onclick="likePost('{{ post._id }}')">
                             <i class="fas fa-thumbs-up"></i> Like ({{ post.likes | default(0) }})
@@ -58,6 +73,7 @@
                         </button>
                     </div>
 
+                    <!-- Comments Section -->
                     <div class="comments-section" id="comments-{{ post._id }}" style="display: none;">
                         <h4>Comments</h4>
                         {% if post.comments %}
@@ -91,6 +107,18 @@
     </div>
 
     <script>
+        function editPost(postId, content) {
+            // Hide the post content and show the edit form
+            document.getElementById(`post-content-${postId}`).style.display = 'none';
+            document.getElementById(`edit-form-${postId}`).style.display = 'block';
+        }
+
+        function cancelEdit(postId) {
+            // Hide the edit form and show the post content
+            document.getElementById(`edit-form-${postId}`).style.display = 'none';
+            document.getElementById(`post-content-${postId}`).style.display = 'block';
+        }
+
         function likePost(postId) {
             fetch(`/community/like_post/${postId}`, {
                 method: 'POST',
